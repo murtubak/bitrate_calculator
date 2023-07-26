@@ -57,6 +57,7 @@ namespace FoxAristaXVideo {
             }
             List<string> uniqueMAC = new List<string>();
             List<FoxXVideoDriver> foxDriverList = new List<FoxXVideoDriver>();
+            // Create an object for each device with a different MAC address
             foreach(XVideoInterface xVideoData in xVideoDataList) {
                 if (uniqueMAC.Count == 0 || !uniqueMAC.Contains(xVideoData.MAC)) {
                     FoxXVideoDriver foxDriver = new FoxXVideoDriver();
@@ -69,3 +70,5 @@ namespace FoxAristaXVideo {
         }
     }
 }
+// steps I would take to improve if given more time:
+// One pass through the data in the json file: initialize new devices when a new MAC address is received and update the bitrates stored in each device
