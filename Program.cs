@@ -19,7 +19,7 @@ namespace FoxAristaXVideo {
     }
 
     public class FoxXVideoDriver{
-
+        public string MAC;
         double currentRxBitrate = 0;
         double currentTxBitrate = 0;
 
@@ -55,8 +55,15 @@ namespace FoxAristaXVideo {
                 XVideoInterface xVideoData = item.ToObject<XVideoInterface>();
                 xVideoDataList.Add(xVideoData);
             }
-            // I should produce a new object for each equipment 
-            FoxXVideoDriver foxDriver = new FoxXVideoDriver();
+            List<string> uniqueMAC = new List<string>();
+            List<FoxXVideoDriver> foxDriverList = new List<FoxXVideoDriver>();
+            foreach(XVideoInterface xVideoData in xVideoDataList) {
+                if (uniqueMAC.Count == 0 || !uniqueMAC.Contains(xVideoData.MAC)) {
+                    FoxXVideoDriver foxDriver = new FoxXVideoDriver();
+                    foxDriver.MAC = xVideoData.MAC;
+                    foxDriverList.Add(foxDriver);
+                }
+            }
             BitrateCalculator bitrateCalculator = new BitrateCalculator();
             bitrateCalculator.CalculateBitrates(xVideoDataList);
         }
